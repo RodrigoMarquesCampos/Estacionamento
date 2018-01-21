@@ -1,0 +1,11 @@
+create database Estacionamento;
+
+crate table usuarios(
+	id integer auto_increment,
+	nome varchar(50), 
+	login varchar(20)
+	senha varchar(20),
+	primary key(id)
+};
+
+create table clientes(
