@@ -26,32 +26,32 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
 
     @Override
     protected String getConsultaInsert() {
-        return "instert into Usuarios(nome, telefone, endereco) values('?','?','?')";
+        return "insert into clientes(nome, telefone, endereco) values(?, ?, ?)";
     }
 
     @Override
     protected String getConsultaUpdate() {
-        return "update Clientes set nome =  '?', telefone = '?', endereco = '?' where id = ?";
+        return "update clientes set nome =  ?, telefone = ?, endereco = ? where id = ?";
     }
 
     @Override
     protected String getConsultaDelete() {
-        return "delete from Clientes where id = ?";
+        return "delete from clientes where id = ?";
     }
 
     @Override
     protected String getConsultaAbrir() {
-        return "select id, nome, telefone, endereco from Clientes where id = ?";
+        return "select id, nome, telefone, endereco from clientes where id = ?";
     }
 
     @Override
     protected String getConsultaBuscar() {
-        return "select id, nome, telefone, endereco from Clientes";
+        return "select id, nome, telefone, endereco from clientes";
     }
 
     @Override
     protected String getConsultaId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "select max(id) from clientes";
     }
 
     @Override
@@ -75,10 +75,10 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
             sql.setString(1, obj.getNome());
             sql.setString(2, obj.getTelefone());
             sql.setString(3, obj.getEndereco());
-            sql.setInt(4, obj.getTipo().getId());
+           // sql.setInt(4, obj.getTipo().getId());
             
             if(obj.getId() > 0)
-                sql.setInt(5, obj.getId());
+                sql.setInt(4, obj.getId());
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

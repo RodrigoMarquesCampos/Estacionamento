@@ -27,17 +27,17 @@ public class UsuarioDAO extends DAOGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected String getConsultaInsert() {
-        return "insert into usuarios(nome, login, senha, nivel) values ('?', '?', '?', '?');"; // nome, login, senha, tipo
+        return "insert into usuarios(nome, login, senha, nivel) values (?, ?, ?, ?)"; // nome, login, senha, tipo
     }
 
     @Override
     protected String getConsultaUpdate() {
-        return " update usuarios set login = '?', senha = '?', nome = '?', nivel = ? where id = ?;"; //login, senha, nome, detipo, id
+        return " update usuarios set nome = ?, login = ?, senha = ?, nivel = ? where id = ?"; //login, senha, nome, detipo, id
     }
 
     @Override
     protected String getConsultaDelete() {
-        return "delete from usuarios where id = ?;";
+        return "delete from usuarios where id = ?";
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected String getConsultaBuscar() {
-        return "select id, nome, login, senha, nivel from usuarios";
+        return "select id, nome, login, senha, nivel from usuarios ";
     }
 
     @Override
@@ -68,19 +68,18 @@ public class UsuarioDAO extends DAOGenerico<Usuario> implements UsuarioRepositor
         }
         
         if(filtro.getTipo() != null)
-            this.adicionaFiltro("tipo", filtro.getTipo().getId());
+            this.adicionaFiltro("nivel", filtro.getTipo().getId());
     }
 
     @Override
     protected void setParametros(PreparedStatement sql, Usuario obj) {
         
         try{
-            sql.setString(1, obj.getNome());
-            String x = obj.getNome();
-            sql.setString(2, obj.getLogin());
-            sql.setString(3, obj.getSenha());
-            sql.setInt(4, obj.getTipo().getId());
-            
+           sql.setString(1, obj.getNome());
+           sql.setString(2, obj.getLogin());
+           sql.setString(3, obj.getSenha());
+           sql.setInt(4, obj.getTipo().getId());
+           
             if(obj.getId() > 0){
                 sql.setInt(5, obj.getId());
             }

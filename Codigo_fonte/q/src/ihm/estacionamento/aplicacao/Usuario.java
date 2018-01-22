@@ -13,7 +13,7 @@ public class Usuario implements Entidade{
     private String senha;
     private String login;
     private TipoUsuario tipo;
-    private int id;
+    private int id = 0;
     private String nome;
 
     public Usuario() {
@@ -100,7 +100,7 @@ public class Usuario implements Entidade{
     }
 
     public String getNome() {
-        return nome;
+        return this.nome;
     }
 
     public void setNome(String nome) {

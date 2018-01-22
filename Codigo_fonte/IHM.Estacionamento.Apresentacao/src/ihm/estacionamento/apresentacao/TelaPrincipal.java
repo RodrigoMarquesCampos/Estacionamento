@@ -69,8 +69,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         button1 = new java.awt.Button();
+        jMenuBar4 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
         btnSair = new javax.swing.JButton();
-        button2 = new java.awt.Button();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenu1.setText("jMenu1");
@@ -89,6 +92,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         button1.setLabel("button1");
 
+        jMenu6.setText("File");
+        jMenuBar4.add(jMenu6);
+
+        jMenu7.setText("Edit");
+        jMenuBar4.add(jMenu7);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -100,10 +109,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        button2.setLabel("button2");
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("FisicoB");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
         setJMenuBar(jMenuBar1);
@@ -117,45 +126,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnSair)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnSair)
-                .addGap(32, 32, 32)
-                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 468, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addGap(0, 471, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-       /* telalogin = new TelaLogin();
-            
-            telalogin.setVisible(true);
+        telalogin = new TelaLogin();
             this.setVisible(false);
+            telalogin.setVisible(true);
+            
             this.p = p;
             return; 
-        */
-       
-         UsuarioBuscar tela = new UsuarioBuscar(Repositorios.getUsuarioRepositorio(), UsuarioEditar.class);
-
-        this.add(tela);
-        tela.setVisible(true);
     }//GEN-LAST:event_btnSairActionPerformed
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
-          UsuarioBuscar tela = new UsuarioBuscar(Repositorios.getUsuarioRepositorio(), UsuarioEditar.class);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ClienteFisicoBuscar tela = new ClienteFisicoBuscar(Repositorios.getFisicoRepositorio(), FisicoEditar.class);
 
         this.add(tela);
         tela.setVisible(true);
-
-// TODO add your handling code here:
-    }//GEN-LAST:event_button2ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,14 +198,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSair;
     private java.awt.Button button1;
-    private java.awt.Button button2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JMenuBar jMenuBar4;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,10 +6,13 @@
 package ihm.estacionamento.apresentacao;
 
 import ihm.estacionamento.aplicacao.ClienteRepositorio;
+import ihm.estacionamento.aplicacao.Fisico;
+import ihm.estacionamento.aplicacao.FisicoRepositorio;
 import ihm.estacionamento.aplicacao.Repositorio;
 import ihm.estacionamento.aplicacao.UsuarioRepositorio;
 import java.util.logging.Logger;
 import ihm.estacionamento.persistencia.ClienteDAO;
+import ihm.estacionamento.persistencia.FisicoDAO;
 import ihm.estacionamento.persistencia.UsuarioDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -32,6 +35,22 @@ public class Repositorios {
             }
         return clienteDAO;
     } 
+    
+    static FisicoRepositorio fisicoDAO = null;
+    
+    public static FisicoRepositorio getFisicoRepositorio(){
+        if(fisicoDAO == null)
+            try{
+                fisicoDAO = new FisicoDAO();
+            }catch(ClassNotFoundException ex){
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }catch(SQLException ex){
+                Logger.getLogger(Repositorios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return fisicoDAO;
+    }
+    
+    
 
     public static UsuarioRepositorio usuarioDAO = null;
     

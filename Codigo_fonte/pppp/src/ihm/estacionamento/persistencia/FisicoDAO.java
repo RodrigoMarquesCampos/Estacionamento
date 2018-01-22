@@ -19,20 +19,20 @@ import java.util.logging.Logger;
  *
  * @author Rodrigo
  */
-public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio{
-    
+public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio {
+
     public FisicoDAO() throws ClassNotFoundException, SQLException {
         super();
     }
 
     @Override
     protected String getConsultaInsert() {
-        return "insert into cliente_fisico(cliente_fk, cpf) values('?', '?')";
+        return "insert into cliente_fisico(cliente_fk, cpf) values(?, ?)";
     }
 
     @Override
     protected String getConsultaUpdate() {
-        return "update cliente_fisico set cliente_fk = ?, cpf = '?'";
+        return "update cliente_fisico set cliente_fk = ?, cpf = ?";
     }
 
     @Override
@@ -43,14 +43,14 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio{
     @Override
     protected String getConsultaAbrir() {
         return "select clientes.id, clientes.nome, clientes.endereco, clientes.telefone,"
-            + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk"
-            + " where cliente.id = ?";
+                + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk"
+                + " where cliente.id = ?";
     }
 
     @Override
     protected String getConsultaBuscar() {
         return "select clientes.id, clientes.nome, clientes.endereco, clientes.telefone,"
-            + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk ";
+                + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk ";
     }
 
     @Override
@@ -60,33 +60,37 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio{
 
     @Override
     protected void setBuscaFiltros(Fisico filtro) {
-        if(!filtro.getCpf().isEmpty() && filtro.getCpf() != null)
-            this.adicionaFiltro("cpf", filtro.getCpf());
-        
-        if(filtro.getId()> 0)
-            this.adicionaFiltro("cliente_fk", filtro.getId());
-        
-        if(filtro.getNome() != null && !filtro.getNome().isEmpty())
+        if (filtro.getCpf() != null && !filtro.getCpf().isEmpty()) {
+            this.adicionaFiltro("cliente_fisico.cpf", filtro.getCpf());
+        }
+
+        if (filtro.getId() > 0) {
+            this.adicionaFiltro("cliente_fisico.cliente_fk", filtro.getId());
+        }
+
+        if (filtro.getNome() != null && !filtro.getNome().isEmpty()) {
             this.adicionaFiltro("cliente.nome", filtro.getNome());
-        
-        if(filtro.getEndereco() != null && !filtro.getEndereco().isEmpty())
+        }
+
+        if (filtro.getEndereco() != null && !filtro.getEndereco().isEmpty()) {
             this.adicionaFiltro("cliente.endereco", filtro.getEndereco());
-        
-        if(filtro.getTipo() != null)
+        }
+
+        if (filtro.getTipo() != null) {
             this.adicionaFiltro("cliente.tipo", filtro.getTipo().getId());
-        
-        if(filtro.getTelefone() != null && filtro.getTelefone().isEmpty())
-            this.adicionaFiltro("cliente.telefone", filtro.getTelefone());                
+        }
+
+        if (filtro.getTelefone() != null && filtro.getTelefone().isEmpty()) {
+            this.adicionaFiltro("cliente.telefone", filtro.getTelefone());
+        }
     }
 
     @Override
     protected void setParametros(PreparedStatement sql, Fisico obj) {
-        try{
-            sql.setString(1, obj.getCpf());
-            
-            if(obj.getId() > 0)
-                sql.setInt(2, obj.getId());
-      
+        try {
+            sql.setInt(1, obj.getId());
+            sql.setString(2, obj.getCpf());
+
         } catch (SQLException ex) {
             Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,42 +98,99 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio{
 
     @Override
     protected Fisico setDados(ResultSet resultado) {
-        try{
+        try {
             Fisico obj = new Fisico();
             obj.setCpf(resultado.getString("cliente_fisico.cpf"));
             obj.setEndereco(resultado.getString("clientes.endereco"));
             obj.setId(resultado.getInt("cliente_fisico.cliente_fk"));
             obj.setNome(resultado.getString("clientes.nome"));
             obj.setTelefone(resultado.getString("clientes.telefone"));
-            
+
             return obj;
         } catch (SQLException ex) {
             Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    public boolean SalvarC(Fisico obj) {
+
+    public boolean Salvar(Fisico obj) {
         Cliente cliente = new Cliente();
         cliente.setEndereco(obj.getEndereco());
         cliente.setNome(obj.getNome());
         cliente.setTelefone(obj.getTelefone());
         cliente.setTipo(TipoCliente.FISICO);
-        
+
         try {
             ClienteDAO c = new ClienteDAO();
-            if(!c.Salvar(cliente))
+            if (!c.Salvar(cliente)) {
                 return false;
+            }
+
+            try {
+                PreparedStatement sql = null;
+
+                if (obj.getId() == 0) {
+                    obj.setId(c.BuscarUltimoId());
+                    sql = conexao.prepareStatement(getConsultaInsert());
+                } else {
+                    sql = conexao.prepareStatement(getConsultaUpdate());
+                }
+
+                setParametros(sql, obj);
+
+                if (sql.executeUpdate() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch (Exception ex) {
+                return false;
+            }
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
-        if(Salvar(obj))
-            return true;
-        
-       return false;
+
+        return false;
     }
-    
+
+    public boolean Apagar(Fisico obj) {
+        Cliente cliente = new Cliente();
+        cliente.setEndereco(obj.getEndereco());
+        cliente.setNome(obj.getNome());
+        cliente.setTelefone(obj.getTelefone());
+        cliente.setTipo(TipoCliente.FISICO);
+
+        try {
+            try {
+                PreparedStatement sql = conexao.prepareStatement(getConsultaDelete());
+
+                sql.setInt(1, obj.getId());
+
+                if (sql.executeUpdate() <= 0) {
+                    return false;
+                }
+
+            } catch (Exception ex) {
+                return false;
+            }
+            
+            ClienteDAO c = new ClienteDAO();
+            if (c.Apagar(cliente)) {
+                obj = null;
+                return true;
+            }
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FisicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+
+    }
 }
