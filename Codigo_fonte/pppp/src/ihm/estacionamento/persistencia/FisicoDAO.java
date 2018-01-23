@@ -44,13 +44,13 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio 
     protected String getConsultaAbrir() {
         return "select clientes.id, clientes.nome, clientes.endereco, clientes.telefone,"
                 + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk"
-                + " where cliente.id = ?";
+                + " where clientes.id = ?";
     }
 
     @Override
     protected String getConsultaBuscar() {
         return "select clientes.id, clientes.nome, clientes.endereco, clientes.telefone,"
-                + " cliente_fisico.cpf from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk ";
+                + " cliente_fisico.cpf, cliente_fisico.cliente_fk from clientes join cliente_fisico on clientes.id = cliente_fisico.cliente_fk ";
     }
 
     @Override
@@ -69,19 +69,19 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio 
         }
 
         if (filtro.getNome() != null && !filtro.getNome().isEmpty()) {
-            this.adicionaFiltro("cliente.nome", filtro.getNome());
+            this.adicionaFiltro("clientes.nome", filtro.getNome());
         }
 
         if (filtro.getEndereco() != null && !filtro.getEndereco().isEmpty()) {
-            this.adicionaFiltro("cliente.endereco", filtro.getEndereco());
+            this.adicionaFiltro("clientes.endereco", filtro.getEndereco());
         }
 
         if (filtro.getTipo() != null) {
-            this.adicionaFiltro("cliente.tipo", filtro.getTipo().getId());
+            this.adicionaFiltro("clientes.tipo", filtro.getTipo().getId());
         }
 
         if (filtro.getTelefone() != null && filtro.getTelefone().isEmpty()) {
-            this.adicionaFiltro("cliente.telefone", filtro.getTelefone());
+            this.adicionaFiltro("clientes.telefone", filtro.getTelefone());
         }
     }
 
@@ -102,7 +102,7 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio 
             Fisico obj = new Fisico();
             obj.setCpf(resultado.getString("cliente_fisico.cpf"));
             obj.setEndereco(resultado.getString("clientes.endereco"));
-            obj.setId(resultado.getInt("cliente_fisico.cliente_fk"));
+            obj.setId(resultado.getInt("clientes.id"));
             obj.setNome(resultado.getString("clientes.nome"));
             obj.setTelefone(resultado.getString("clientes.telefone"));
 
@@ -119,6 +119,7 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio 
         cliente.setNome(obj.getNome());
         cliente.setTelefone(obj.getTelefone());
         cliente.setTipo(TipoCliente.FISICO);
+        cliente.setId(obj.getId());
 
         try {
             ClienteDAO c = new ClienteDAO();
@@ -163,6 +164,7 @@ public class FisicoDAO extends DAOGenerico<Fisico> implements FisicoRepositorio 
         cliente.setNome(obj.getNome());
         cliente.setTelefone(obj.getTelefone());
         cliente.setTipo(TipoCliente.FISICO);
+        cliente.setId(obj.getId());
 
         try {
             try {
