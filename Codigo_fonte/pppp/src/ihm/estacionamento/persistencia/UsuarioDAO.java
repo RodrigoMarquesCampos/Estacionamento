@@ -32,7 +32,7 @@ public class UsuarioDAO extends DAOGenerico<Usuario> implements UsuarioRepositor
 
     @Override
     protected String getConsultaUpdate() {
-        return " update usuarios set nome = ?, login = ?, senha = ?, nivel = ? where id = ?"; //login, senha, nome, detipo, id
+        return "update usuarios set nome = ?, login = ?, senha = ?, nivel = ? where id = ?"; //login, senha, nome, detipo, id
     }
 
     @Override

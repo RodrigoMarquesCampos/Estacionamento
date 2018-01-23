@@ -200,6 +200,7 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         entidade.setLogin(txtLogin.getText());
         entidade.setSenha(String.copyValueOf( pwdSenha.getPassword()));
         entidade.setTipo((TipoUsuario) cbxTipo.getSelectedItem());
+        
     }
 
     @Override

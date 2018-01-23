@@ -52,10 +52,16 @@ public class TelaLogin extends javax.swing.JFrame {
         pwdSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnLogin.setText("Efetuar Login");
+        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/entrar.png"))); // NOI18N
+        btnLogin.setText("Entrar");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
+            }
+        });
+        btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnLoginKeyPressed(evt);
             }
         });
 
@@ -78,14 +84,10 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblMensagem)
-                            .addComponent(btnLogin))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblMe)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(lblMensagem)
+                    .addComponent(btnLogin)
+                    .addComponent(lblMe))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,27 +110,16 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Usuario p = new Usuario(0, null, String.valueOf(pwdSenha.getPassword()), txtLogin.getText());
-        
-        List<Usuario> lista = dao.Buscar(p);
-        
-        if(lista.isEmpty() || p.getSenha().isEmpty() || p.getLogin().isEmpty()){
-            lblMe.setText("Login e/ou senha incorreto(s)!");
-        }else{
-            Aplicacao.setUsuario(lista.get(0));
-            p = lista.get(0);
-            TelaPrincipal principal = new TelaPrincipal(p);
-            
-            principal.setTelaLogin(this);
-            
-            principal.setVisible(true);
-            
-            this.setVisible(false);
-        }
+        login();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
+       login();
+    }//GEN-LAST:event_btnLoginKeyPressed
 
     /**
      * @param args the command line arguments
@@ -175,4 +166,25 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField pwdSenha;
     private javax.swing.JTextField txtLogin;
     // End of variables declaration//GEN-END:variables
+
+    private void login(){
+        Usuario p = new Usuario(0, null, String.valueOf(pwdSenha.getPassword()), txtLogin.getText());
+        
+        List<Usuario> lista = dao.Buscar(p);
+        
+        if(lista.isEmpty() || p.getSenha().isEmpty() || p.getLogin().isEmpty()){
+            lblMe.setText("Login e/ou senha incorreto(s)!");
+        }else{
+            Aplicacao.setUsuario(lista.get(0));
+            p = lista.get(0);
+            TelaPrincipal principal = new TelaPrincipal(p);
+            
+            principal.setTelaLogin(this);
+            
+            principal.setVisible(true);
+            
+            this.setVisible(false);
+        }
+    }
+
 }
