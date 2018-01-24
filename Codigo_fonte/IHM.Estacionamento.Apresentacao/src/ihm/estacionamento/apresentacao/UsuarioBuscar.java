@@ -58,7 +58,7 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
 
         setClosable(true);
         setMaximizable(true);
-        setTitle("Buscar Usuario");
+        setTitle("Buscar Usuários");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nome:");
@@ -185,10 +185,12 @@ public class UsuarioBuscar extends TelaBusca<Usuario> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+        limpaFiltro();
         buscar();
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        limpaFiltro();
         novo();
     }//GEN-LAST:event_btnNovoActionPerformed
 

@@ -8,6 +8,7 @@ import ihm.estacionamento.aplicacao.Aplicacao;
 import ihm.estacionamento.aplicacao.Usuario;
 import ihm.estacionamento.aplicacao.UsuarioRepositorio;
 import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Rodrigo
@@ -173,7 +174,8 @@ public class TelaLogin extends javax.swing.JFrame {
         List<Usuario> lista = dao.Buscar(p);
         
         if(lista.isEmpty() || p.getSenha().isEmpty() || p.getLogin().isEmpty()){
-            lblMe.setText("Login e/ou senha incorreto(s)!");
+            //lblMe.setText("Combinação inválida, tente novamente.");
+            JOptionPane.showMessageDialog(rootPane, "Combinação Login/Senha inválida! Verifique e tente novamente");
         }else{
             Aplicacao.setUsuario(lista.get(0));
             p = lista.get(0);

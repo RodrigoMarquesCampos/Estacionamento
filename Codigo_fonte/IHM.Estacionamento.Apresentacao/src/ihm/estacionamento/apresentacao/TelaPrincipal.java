@@ -7,6 +7,7 @@ package ihm.estacionamento.apresentacao;
 
 import ihm.estacionamento.aplicacao.Aplicacao;
 import ihm.estacionamento.aplicacao.Usuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     public TelaPrincipal(Usuario p) {
+        
+        setExtendedState(MAXIMIZED_BOTH);
         
         if(!Aplicacao.isLogged()){
             if(telalogin == null)
@@ -67,6 +70,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jdpPrincipal = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
         mnuArquivo = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuSair = new javax.swing.JMenuItem();
         mnuUsuarios = new javax.swing.JMenu();
         mnuBuscaUsuario = new javax.swing.JMenuItem();
@@ -74,8 +78,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         mnuClienteFisicoB = new javax.swing.JMenuItem();
         mnuJuridicoB = new javax.swing.JMenuItem();
         mnuVeiculos = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         mnuPagamento = new javax.swing.JMenu();
-        mnuSobre = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -96,8 +103,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 528, Short.MAX_VALUE)
         );
 
+        jMenuBar2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         mnuArquivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/page.png"))); // NOI18N
         mnuArquivo.setText("Arquivo");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/help.png"))); // NOI18N
+        jMenuItem1.setText("Ajuda");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuArquivo.add(jMenuItem1);
 
         mnuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/sair.png"))); // NOI18N
         mnuSair.setText("Sair");
@@ -154,15 +172,54 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         mnuVeiculos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/car.png"))); // NOI18N
         mnuVeiculos.setText("Veiculos");
+        mnuVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuVeiculosActionPerformed(evt);
+            }
+        });
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
+        jMenuItem2.setText("Buscar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnuVeiculos.add(jMenuItem2);
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Sem título.png"))); // NOI18N
+        jMenuItem5.setText("Entrada/Saida");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        mnuVeiculos.add(jMenuItem5);
+
         jMenuBar2.add(mnuVeiculos);
 
-        mnuPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/money_add.png"))); // NOI18N
-        mnuPagamento.setText("Receitas");
-        jMenuBar2.add(mnuPagamento);
+        mnuPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/money.png"))); // NOI18N
+        mnuPagamento.setText("Movimenteções Financeiras");
 
-        mnuSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/information.png"))); // NOI18N
-        mnuSobre.setText("Sobre");
-        jMenuBar2.add(mnuSobre);
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/zoom.png"))); // NOI18N
+        jMenuItem3.setText("Buscar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnuPagamento.add(jMenuItem3);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/money_add.png"))); // NOI18N
+        jMenuItem4.setText("Pagamento");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuPagamento.add(jMenuItem4);
+
+        jMenuBar2.add(mnuPagamento);
 
         setJMenuBar(jMenuBar2);
 
@@ -212,6 +269,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_mnuJuridicoBActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Sobre tela = new Sobre();
+        jdpPrincipal.add(tela);
+        tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+         BuscarVeiculo tela = new BuscarVeiculo();
+         jdpPrincipal.add(tela);
+         tela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Funcionalidade não implementada!");
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Funcionalidade não implementada!");
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Funcionalidade não implementada!");
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mnuVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVeiculosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mnuVeiculosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,6 +336,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JDesktopPane jdpPrincipal;
     private javax.swing.JMenu mnuArquivo;
     private javax.swing.JMenuItem mnuBuscaUsuario;
@@ -259,7 +349,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuJuridicoB;
     private javax.swing.JMenu mnuPagamento;
     private javax.swing.JMenuItem mnuSair;
-    private javax.swing.JMenu mnuSobre;
     private javax.swing.JMenu mnuUsuarios;
     private javax.swing.JMenu mnuVeiculos;
     // End of variables declaration//GEN-END:variables

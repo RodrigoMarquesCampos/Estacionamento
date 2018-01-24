@@ -48,12 +48,18 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
         btnCancelar = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
 
+        setTitle("Cadastrar/Editar/Apagar Cliente Jurídico");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("CNPJ");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Endereco:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Telefone:");
 
         try {
@@ -73,6 +79,7 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
             ex.printStackTrace();
         }
 
+        btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/disquete-salvar-simbolo-de-interface_318-34265.jpg"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +88,7 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
             }
         });
 
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +97,7 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
             }
         });
 
+        btnApagar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons-apagar-desenho_csp8413359.jpg"))); // NOI18N
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,9 +113,9 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(btnSalvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(btnApagar)
                 .addGap(25, 25, 25))
         );
@@ -144,7 +153,7 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cftTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -217,6 +226,8 @@ public class JuridicoEditar extends TelaEdicao<Juridico> {
 
     @Override
     public void carregaCampos() {
+        if(entidade.getId() ==  0)
+            btnApagar.setVisible(false);
         txtNome.setText(entidade.getNome());
         txtEndereco.setText(entidade.getEndereco());
         cftCnpj.setText(entidade.getCnpj());

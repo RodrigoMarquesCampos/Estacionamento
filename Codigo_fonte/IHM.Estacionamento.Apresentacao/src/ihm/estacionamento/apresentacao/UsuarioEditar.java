@@ -49,6 +49,9 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
         jLabel4 = new javax.swing.JLabel();
         cbxTipo = new javax.swing.JComboBox<>();
 
+        setResizable(true);
+        setTitle("Cadastrar/Editar/Apagar Usuário");
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nome:");
 
@@ -187,6 +190,8 @@ public class UsuarioEditar extends TelaEdicao<Usuario> {
 
     @Override
     public void carregaCampos() {
+        if(entidade.getId() ==  0)
+            btnApagar.setVisible(false);
         txtNome.setText(entidade.getNome());
         txtLogin.setText(entidade.getLogin());
         pwdSenha.setText(entidade.getSenha());
