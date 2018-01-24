@@ -13,7 +13,7 @@ public class Usuario implements Entidade{
     private String senha;
     private String login;
     private TipoUsuario tipo;
-    private int id = 0;
+    private int id;
     private String nome;
 
     public Usuario() {

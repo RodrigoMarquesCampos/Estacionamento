@@ -39,7 +39,7 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
     }
     
     public void buscar(){
-        limpaFiltro();
+    //    limpaFiltro();
         
         preencheFiltro();
         
@@ -62,15 +62,13 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
         
         tela_edicao.setRepositorio(repositorio);
         
-        //tela_edicao.setEntidade(filtro);
+        tela_edicao.setEntidade(filtro);
         
         this.getParent().add(tela_edicao);
         
         tela_edicao.setVisible(true);
         
         this.setVisible(false);
-        
-        
     }
     
     public void editar(){
@@ -99,7 +97,8 @@ public abstract class TelaBusca<T extends Entidade> extends javax.swing.JInterna
         tela_edicao.setVisible(true);
         
         this.setVisible(false);
-    
+        
+        buscar();
     }
         
 }
